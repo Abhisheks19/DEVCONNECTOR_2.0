@@ -1,6 +1,6 @@
 import axios from "axios";
 import { setAlert } from "./alert";
-import { GET_PROFILE, PROFILE_ERROR } from "./types";
+import { GET_PROFILE, PROFILE_ERROR, UPDATE_PROFILE } from "./types";
 
 // Get current users profile
 export const getCurrentProfile = () => async dispatch => {
@@ -19,7 +19,7 @@ export const getCurrentProfile = () => async dispatch => {
   }
 };
 
-// Create or update profile
+// add or edit profile
 export const createProfile = (
   formData,
   history,
@@ -42,6 +42,72 @@ export const createProfile = (
     if (!edit) {
       history.push("/dashboard");
     }
+  } catch (error) {
+    const errors = error.response.data.errors;
+
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, "danger")));
+    }
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: error.response.statusText, status: error.response.status }
+    });
+  }
+};
+
+// add or edit Experience
+export const addExperience = (
+  formData,
+  history,
+  edit = false
+) => async dispatch => {
+  const config = {
+    "content-type": "application/json"
+  };
+
+  try {
+    const res = await axios.put("/api/profile/experience", formData, config);
+
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data
+    });
+
+    dispatch(setAlert("Added experience", "success"));
+    history.push("/dashboard");
+  } catch (error) {
+    const errors = error.response.data.errors;
+
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, "danger")));
+    }
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: error.response.statusText, status: error.response.status }
+    });
+  }
+};
+
+// add or edit Education
+export const addEducation = (
+  formData,
+  history,
+  edit = false
+) => async dispatch => {
+  const config = {
+    "content-type": "application/json"
+  };
+
+  try {
+    const res = await axios.put("/api/profile/education", formData, config);
+
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data
+    });
+
+    dispatch(setAlert("Added education", "success"));
+    history.push("/dashboard");
   } catch (error) {
     const errors = error.response.data.errors;
 
