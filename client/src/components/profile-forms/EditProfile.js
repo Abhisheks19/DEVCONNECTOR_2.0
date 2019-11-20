@@ -39,8 +39,7 @@ const EditProfile = ({
       githubusername:
         loading || !profile.githubusername ? "" : profile.githubusername,
       skills: loading || !profile.skills ? "" : profile.skills.join(","),
-      facebook:
-        loading || !profile.social.facebook ? "" : profile.social.facebook,
+      facebook: loading || !profile.social ? "" : profile.social.facebook,
       twitter: loading || !profile.social ? "" : profile.social.twitter,
       youtube: loading || !profile.social ? "" : profile.social.youtube,
       instagram: loading || !profile.social ? "" : profile.social.instagram,
@@ -256,7 +255,6 @@ const mapStateToProps = state => ({
   profile: state.profile
 });
 
-export default connect(
-  mapStateToProps,
-  { createProfile, getCurrentProfile }
-)(withRouter(EditProfile));
+export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
+  withRouter(EditProfile)
+);
