@@ -120,3 +120,55 @@ export const addEducation = (
     });
   }
 };
+
+// Delete Experience
+export const deleteExperience = (exp_Id) => async dispatch => {
+  const config = {
+    "content-type": "application/json"
+  };
+  try {
+    const res = await axios.delete(`/api/profile/experience/${exp_Id}`, config)
+
+    dispatch({
+      type: GET_PROFILE,
+      payload: res.data
+    })
+
+  } catch (error) {
+    const errors = error.response.data.errors;
+
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, "danger")));
+    }
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: error.response.statusText, status: error.response.status }
+    });
+  }
+}
+
+// Delete Experience
+export const deleteEducation = (edu_Id) => async dispatch => {
+  const config = {
+    "content-type": "application/json"
+  };
+  try {
+    const res = await axios.delete(`/api/profile/education/${edu_Id}`, config)
+
+    dispatch({
+      type: GET_PROFILE,
+      payload: res.data
+    })
+
+  } catch (error) {
+    const errors = error.response.data.errors;
+
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, "danger")));
+    }
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: error.response.statusText, status: error.response.status }
+    });
+  }
+}

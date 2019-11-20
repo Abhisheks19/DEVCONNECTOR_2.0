@@ -29,6 +29,8 @@ const AddEducation = ({ addEducation, history }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const [toDateDisabled, toggleDisabled] = useState(false);
+
   const onSubmit = e => {
     e.preventDefault();
     addEducation(formData, history);
@@ -89,14 +91,18 @@ const AddEducation = ({ addEducation, history }) => {
               type="checkbox"
               name="current"
               value={current}
-              onChange={e => onChange(e)}
+              checked={current}
+              onChange={e => {
+                setFormData({ ...formData, current: !current });
+                toggleDisabled(!toDateDisabled);
+              }}
             />{" "}
             Current School or Bootcamp
           </p>
         </div>
         <div class="form-group">
           <h4>To Date</h4>
-          <input type="date" name="to" value={to} onChange={e => onChange(e)} />
+          <input type="date" name="to" value={to} disabled={toDateDisabled ? "disabled" : ""} />
         </div>
         <div class="form-group">
           <textarea
