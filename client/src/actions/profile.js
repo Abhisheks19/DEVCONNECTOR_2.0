@@ -29,7 +29,7 @@ export const getCurrentProfile = () => async dispatch => {
 
 // Get all users profile
 export const getProfiles = () => async dispatch => {
-  dispatch({ type: CLEAR_PROFILE })
+  dispatch({ type: CLEAR_PROFILE });
   try {
     const res = await axios.get("/api/profile");
 
@@ -46,8 +46,8 @@ export const getProfiles = () => async dispatch => {
 };
 
 // Get profile by ID
-export const getProfileById = (userId) => async dispatch => {
-  dispatch({ type: CLEAR_PROFILE })
+export const getProfileById = userId => async dispatch => {
+  dispatch({ type: CLEAR_PROFILE });
   try {
     const res = await axios.get(`/api/profile/${userId}`);
 
@@ -64,8 +64,7 @@ export const getProfileById = (userId) => async dispatch => {
 };
 
 // Get GITHUB repos
-export const getGithubRepos = (username) => async dispatch => {
-  dispatch({ type: CLEAR_PROFILE })
+export const getGithubRepos = username => async dispatch => {
   try {
     const res = await axios.get(`/api/profile/github/${username}`);
 
