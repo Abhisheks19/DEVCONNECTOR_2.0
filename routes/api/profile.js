@@ -126,10 +126,10 @@ router.get("/", async (req, res) => {
   }
 });
 
-// @route  GET api/profile/user/:user_Id
+// @route  GET api/profile/:user_Id
 // @desc   Get profile by user ID
 // @access Public
-router.get("/user/:user_id", async (req, res) => {
+router.get("/:user_id", async (req, res) => {
   try {
     const profile = await Profile.findOne({
       user: req.params.user_id
